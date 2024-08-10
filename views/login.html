@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Real Estate Site</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7e7ce;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container, .signup-container {
+      background-color: #3f2a1d;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+
+    h1 {        color: #f7e7ce;
+
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+        color: #f7e7ce;
+
+      margin-bottom: 5px;
+    }
+
+    input {
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color:  #2e7d32;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #3fa144;;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    p {
+        color:  #f7e7ce;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    p a {
+      color:  #f7e7ce;
+      text-decoration: none;
+    }
+
+    p a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Login</h1>
+    <form id="login-form">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <div id="password-error" class="error-message"></div>
+
+      <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="sign.html">Sign up</a></p>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('login-form');
+    const passwordInputLogin = document.getElementById('password');
+    const passwordErrorLogin = document.getElementById('password-error');
+    
+    loginForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const password = passwordInputLogin.value;
+
+      if (!validateEmail(email)) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+
+      if (!validatePassword(password)) {
+        passwordErrorLogin.textContent = 'Password must be at least 8 characters long and contain at least 1 capital letter and 1 number.';
+        passwordErrorLogin.style.color = 'red';
+        return;
+      } else {
+        passwordErrorLogin.textContent = '';
+      }
+
+      console.log('Login email:', email);
+      console.log('Login password:', password);
+
+      loginForm.reset();
+      window.location.href = "inlog.html";  // Redirect to inlog.html after form validation
+    });
+
+    function validateEmail(email) {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailPattern.test(email);
+    }
+
+    function validatePassword(password) {
+      const passwordPattern = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+      return passwordPattern.test(password);
+    }
+
+    passwordInputLogin.addEventListener('input', () => {
+      passwordErrorLogin.textContent = '';
+    });
+  </script>
+</body>
+</html>
